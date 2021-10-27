@@ -197,7 +197,6 @@ begin
 		if (chunkIndex > 27) begin // 27 transfers of 30 bits necessary to transfer 784 bits of data
 			chunkIndex = 0;
 		end
-		SNN_OUT = SNN_OUT + 1;
 	end else if (!PROGRESS) begin
 		progressed = 0;
 	end
