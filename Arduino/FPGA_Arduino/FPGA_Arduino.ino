@@ -32,6 +32,48 @@ int bitArrayToInt32(bool arr[], int count)
     return ret;
 }
 
+/**
+ * arr be a reference to an array with at least 30 elements
+ */ 
+void writeChunkToJTAG(bool *arr, bool finish) {
+  // Reset progress bit
+  bool resetProgressArray[32] = {}; // Array with only false values
+  uint32_t resetOutput = bitArrayToInt32(resetProgressArray, 32);
+  writeJTAG(0, resetOutput); 
+  delayMicroseconds(1000);
+
+  // Write new data, note that the data indices must be inverted
+  bool setArray[32] = {};
+  setArray[31] = true;
+  setArray[30] = finish;
+  for (int i = 0; i < 30; i++) {
+    setArray[31-(i+2)] = arr[i];
+  }
+  
+  uint32_t output = bitArrayToInt32(setArray, 32);
+  writeJTAG(0, output); 
+  Serial.print("SNN_IN: ");
+  Serial.println(output);
+  delayMicroseconds(1000);
+}
+
+/**
+ * len(data) >= chunks * 30
+ */ 
+void writeChunksToJTAG(bool *data, int chunks) {
+  for (int i = 0; i < chunks; i++) {
+    bool finish = (i+1)==chunks;
+    writeChunkToJTAG(&data[i * 30], finish);
+  }
+}
+
+/**
+ * len(image) >= 728
+ */
+void writeImageToJTAG(bool *image) {
+  writeChunksToJTAG(image, 28);
+}
+
 void loop()
 {
   if (Serial.available() > 0) {
@@ -39,17 +81,11 @@ void loop()
     int valueToSet = strValueToSet.toInt();
     
     if (valueToSet == 0 || valueToSet == 1) {
-      // Set value
-      bool setArray[8] = { true, false, false, false, false, false, false, valueToSet };
-      uint32_t output = bitArrayToInt32(setArray, 8);
-      writeJTAG(0, output); 
-      Serial.print("SNN_IN: ");
-      Serial.println(output);
-  
-      // Unset the set bit
-      bool unsetArray[8] = { false, false, false, false, false, false, false, false };
-      output = bitArrayToInt32(unsetArray, 8);
-      writeJTAG(0, output); 
+      // Demo
+      bool dataArray[60] = {};
+      //dataArray[26] = valueToSet;
+      dataArray[56] = valueToSet;
+      writeChunksToJTAG(dataArray, 2);
 
       // Wait
       delay(500);

@@ -76,6 +76,7 @@ set_global_assignment -name GENERATE_JAM_FILE ON
 set_global_assignment -name GENERATE_JBC_FILE ON
 set_global_assignment -name STRATIXIII_UPDATE_MODE STANDARD
 set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE EPCS16
+set_global_assignment -name VERILOG_NON_CONSTANT_LOOP_LIMIT 10000
 
 source ../../constraints/MKRVIDOR4000/vidor_s_pins.qsf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top

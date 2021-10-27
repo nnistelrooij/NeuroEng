@@ -163,30 +163,53 @@ SYSTEM_PLL PLL_inst(
 // ================================================
 // Your design here
 reg SNN_OUT = 0;
-reg [6:0] SEGMENTS = 0;
-reg SET = 0;
+
+reg [29:0] DATA; // Data from the JTAG
+reg [809:0] IMAGE; // Room for 810 bits of data (27*30 bits)
+
+wire PROGRESS;
+wire FINISH;
+reg [8:0] chunkIndex = 0;
+integer i;
+integer regIndex;
+
+reg progressed = 0;
 
 
 MyDesign MyDesign_inst(
 	.iCLK_MAIN(wCLK120),		// Attach main 120MHz clock
-	.SNN_OUT(SNN_OUT),
-	.SEGMENT0(SEGMENTS[0]),
-	.SEGMENT1(SEGMENTS[1]),
-	.SEGMENT2(SEGMENTS[2]),
-	.SEGMENT3(SEGMENTS[3]),
-	.SEGMENT4(SEGMENTS[4]),
-	.SEGMENT5(SEGMENTS[5]),
-	.SEGMENT6(SEGMENTS[6]),
-	.SET(SET)
+	.DATA(DATA),
+	.PROGRESS(PROGRESS),
+	.FINISH(FINISH),
+	.SNN_OUT(SNN_OUT)
 );
 
 always @(posedge wCLK120)
 begin
-	if (SET) begin
-		SNN_OUT <= SEGMENTS[0];
+	if (PROGRESS && !progressed) begin
+		progressed = 1;
+		for (i=0;i<30; i = i + 1) begin
+			regIndex = (chunkIndex*30)+i;
+			IMAGE[regIndex] = DATA[i]; // Copy from JTAG and place into the big register
+		end
+		
+		chunkIndex = chunkIndex + 1;
+		if (chunkIndex > 27) begin // 27 transfers of 30 bits necessary to transfer 784 bits of data
+			chunkIndex = 0;
+		end
+		SNN_OUT = SNN_OUT + 1;
+	end else if (!PROGRESS) begin
+		progressed = 0;
+	end
+	
+	if (FINISH && chunkIndex > 0) begin
+		chunkIndex = 0; 
+		// Start SNN
+		// ...
+		// Return result
+		SNN_OUT = IMAGE[56];
 	end
 end
-
 
 // ================================================
 
