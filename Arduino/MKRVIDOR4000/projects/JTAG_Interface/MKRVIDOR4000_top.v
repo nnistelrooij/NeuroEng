@@ -207,7 +207,7 @@ begin
 		// Start SNN
 		// ...
 		// Return result
-		SNN_OUT = IMAGE[56];
+		SNN_OUT = IMAGE[800];
 	end
 end
 

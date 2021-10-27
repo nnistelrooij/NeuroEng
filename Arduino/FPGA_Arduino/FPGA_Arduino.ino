@@ -40,7 +40,7 @@ void writeChunkToJTAG(bool *arr, bool finish) {
   bool resetProgressArray[32] = {}; // Array with only false values
   uint32_t resetOutput = bitArrayToInt32(resetProgressArray, 32);
   writeJTAG(0, resetOutput); 
-  delayMicroseconds(1000);
+  delayMicroseconds(1);
 
   // Write new data, note that the data indices must be inverted
   bool setArray[32] = {};
@@ -52,9 +52,9 @@ void writeChunkToJTAG(bool *arr, bool finish) {
   
   uint32_t output = bitArrayToInt32(setArray, 32);
   writeJTAG(0, output); 
-  Serial.print("SNN_IN: ");
-  Serial.println(output);
-  delayMicroseconds(1000);
+  //Serial.print("SNN_IN: ");
+  //Serial.println(output);
+  delayMicroseconds(1);
 }
 
 /**
@@ -68,10 +68,10 @@ void writeChunksToJTAG(bool *data, int chunks) {
 }
 
 /**
- * len(image) >= 728
+ * len(image) >= 810
  */
 void writeImageToJTAG(bool *image) {
-  writeChunksToJTAG(image, 28);
+  writeChunksToJTAG(image, 27);
 }
 
 void loop()
@@ -82,10 +82,9 @@ void loop()
     
     if (valueToSet == 0 || valueToSet == 1) {
       // Demo
-      bool dataArray[60] = {};
-      //dataArray[26] = valueToSet;
-      dataArray[56] = valueToSet;
-      writeChunksToJTAG(dataArray, 2);
+      bool image[810] = {};
+      image[800] = valueToSet;
+      writeImageToJTAG(image);
 
       // Wait
       delay(500);
