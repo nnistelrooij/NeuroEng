@@ -171,6 +171,7 @@ reg [799:0] IMAGE; // Room for 800 bits of data (25*32 bits)
 wire NEXT;
 wire FINISH;
 reg [9:0] reg_offset = 0;
+wire [1:0] neuron_out;
 integer i;
 integer j;
 
@@ -207,7 +208,7 @@ run_network #(
 	.clk(wCLK120),
 	.pixels(IMAGE[6:0]),
 	.start(start_SNN),
-	.neuron_out(SNN_OUT)
+	.neuron_out(neuron_out)
 );
 
 always @(posedge wCLK120) begin
@@ -232,6 +233,8 @@ always @(posedge wCLK120) begin
 		start_SNN = 0;
 	end
 end
+
+assign SSN_OUT = neuron_out;
 
 // ================================================
 

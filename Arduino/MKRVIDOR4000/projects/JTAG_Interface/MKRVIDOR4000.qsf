@@ -79,9 +79,79 @@ set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE EPCS16
 set_global_assignment -name VERILOG_NON_CONSTANT_LOOP_LIMIT 10000
 
 source ../../constraints/MKRVIDOR4000/vidor_s_pins.qsf
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM*
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX*
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D*
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D*
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK*
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT
 
 set_global_assignment -name TOP_LEVEL_ENTITY MKRVIDOR4000_top
 
@@ -95,4 +165,11 @@ set_global_assignment -name SDC_FILE ../../constraints/MKRVIDOR4000/vidor_s.sdc
 set_global_assignment -name QIP_FILE ../../ip/SYSTEM_PLL/SYSTEM_PLL.qip
 set_global_assignment -name VERILOG_FILE MKRVIDOR4000_top.v
 set_global_assignment -name BDF_FILE MyDesign.bdf
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

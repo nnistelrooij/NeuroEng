@@ -2,7 +2,7 @@ module run_network
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
-	parameter bit [WIDTH:0] WEIGHTS [HEIGHT - 1:0] = '{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260}
+	parameter bit [WIDTH:0] WEIGHTS [HEIGHT - 1:0] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
 )
 (
 	input wire clk,
@@ -32,7 +32,7 @@ module run_network
 		cnt = cnt + started;
 	end
 	
-	assign neuron_out[1] = !started & !neuron_out[0];
+	assign neuron_out[1] = rst & !started & !neuron_out[0];
 endmodule
 
 
@@ -42,7 +42,7 @@ module testbench_run_network;
 	reg start = 0;
 	wire [1:0] neuron_out;
 	
-	run_network RN (
+	run_network #(.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})) RN (
 		.clk(clk),
 		.pixels(pixels),
 		.start(start),
