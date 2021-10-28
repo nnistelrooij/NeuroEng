@@ -1,11 +1,10 @@
 
 #include "FPGA_Controller.h"
 
-const int INPUT_BUFFER_SIZE = 102;
+#define JTAG_REGS 15
+
+const int INPUT_BUFFER_SIZE = 98;
 char inputBuffer[INPUT_BUFFER_SIZE]; // Used to store data from the serial input
-const int IMAGE_MIN_SIZE = 784;
-const int IMAGE_MAX_SIZE = 810;
-bool image[IMAGE_MAX_SIZE]; // Used to store data to send to the JTAG
 
 void setup()
 {
@@ -18,8 +17,6 @@ void setup()
   while (!Serial)
     ;
 
-  Serial.println("Welcome!");
-
   // Warning: The digital pins 6, 7 and 8 are configured as outputs
   // on the FPGA, so shortening them out or configuring them as outputs
   // on the CPU as well may kill your Arduino permanently
@@ -27,87 +24,58 @@ void setup()
   initJTAG();
 }
 
+void writePixelsToJTAG() {
+  uint32_t value;
+  int offset;
 
+  // Two cycles to write 784 bits to FPGA
+  for (int JTAGOffset = 0; JTAGOffset < 98; JTAGOffset += 56) {
+    // Signal FPGA to start accepting inputs
+    writeJTAG(JTAG_REGS - 1, 0);
 
-int bitArrayToInt32(bool arr[], int count)
-{
-    int ret = 0;
-    int tmp;
-    for (int i = 0; i < count; i++) {
-        tmp = arr[i];
-        ret |= tmp << (count - i - 1);
+    // Write pixel values to FPGA 
+    for (int registerOffset = 0; registerOffset < JTAG_REGS - 1; registerOffset++) {
+      value = 0;
+      for (int byteOffset = 0; byteOffset < 4; byteOffset++) {
+        offset = JTAGOffset + 4 * registerOffset + byteOffset;
+        if (offset < 98) {
+          value |= inputBuffer[offset] << (24 - 8 * byteOffset);
+        }
+      }
+
+      writeJTAG(registerOffset, value);
     }
-    return ret;
-}
 
-/**
- * arr be a reference to an array with at least 30 elements
- */ 
-void writeChunkToJTAG(bool *arr, bool finish) {
-  // Reset progress bit
-  bool resetProgressArray[32] = {}; // Array with only false values
-  uint32_t resetOutput = bitArrayToInt32(resetProgressArray, 32);
-  writeJTAG(0, resetOutput); 
-  delayMicroseconds(1);
-
-  // Write new data, note that the data indices must be inverted
-  bool setArray[32] = {};
-  setArray[31] = true;
-  setArray[30] = finish;
-  for (int i = 0; i < 30; i++) {
-    setArray[31-(i+2)] = arr[i];
+    // Signal FPGA to store data from JTAG in register
+    writeJTAG(JTAG_REGS - 1, (JTAGOffset == 56) ? 3 : 1);
   }
-  
-  uint32_t output = bitArrayToInt32(setArray, 32);
-  writeJTAG(0, output); 
-  //Serial.print("SNN_IN: ");
-  //Serial.println(output);
-  delayMicroseconds(1);
-}
-
-/**
- * len(data) >= chunks * 30
- */ 
-void writeChunksToJTAG(bool *data, int chunks) {
-  for (int i = 0; i < chunks; i++) {
-    bool finish = (i+1)==chunks;
-    writeChunkToJTAG(&data[i * 30], finish);
-  }
-}
-
-/**
- * len(image) >= 810
- */
-void writeImageToJTAG(bool *image) {
-  writeChunksToJTAG(image, 27);
 }
 
 void loop()
 {
   if (Serial.available() > 0) {
 
-    int bytesRead = Serial.readBytesUntil('\n', inputBuffer, INPUT_BUFFER_SIZE);
-    if (bytesRead >= IMAGE_MIN_SIZE / 8) {
+    int bytesRead = Serial.readBytes(inputBuffer, INPUT_BUFFER_SIZE);
+    if (bytesRead >= INPUT_BUFFER_SIZE) {
       // Process serial input
-      for (int i = 0; i < bytesRead; i++) {
-        for (int j = 0; j < 8; j++) {
-          image[i*8 + j] = inputBuffer[i*8] & (1 << j); // Convert byte to binary
-        }
-      }
-      // Make sure the bit not set by serial input are cleared
-      for (int i = bytesRead*8; i < IMAGE_MAX_SIZE; i++) {
-        image[i] = false;
-      }
+      writePixelsToJTAG();
 
-      // Write image to JTAG
-      writeImageToJTAG(image);
-
-      // Wait
-      delay(500);
+      // Wait, just to be sure
+      delay(1);
   
       // Get and output result
-      uint32_t inputs = readJTAG(0);
-      Serial.println(inputs);
+      uint32_t output = readJTAG(0);
+      switch (output) {
+        case 1:
+          Serial.println("I think it is a 7!");
+          break;
+        case 2:
+          Serial.println("I think it is a 3!");
+          break;
+        default:
+          Serial.println("I dont't know what it is");
+          break;
+      }
     } else {
       Serial.println("Image is invalid!");
     }
