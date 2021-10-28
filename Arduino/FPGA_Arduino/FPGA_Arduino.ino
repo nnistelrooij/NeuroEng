@@ -1,6 +1,12 @@
 
 #include "FPGA_Controller.h"
 
+const int INPUT_BUFFER_SIZE = 102;
+char inputBuffer[INPUT_BUFFER_SIZE]; // Used to store data from the serial input
+const int IMAGE_MIN_SIZE = 784;
+const int IMAGE_MAX_SIZE = 810;
+bool image[IMAGE_MAX_SIZE]; // Used to store data to send to the JTAG
+
 void setup()
 {
 
@@ -20,6 +26,8 @@ void setup()
 
   initJTAG();
 }
+
+
 
 int bitArrayToInt32(bool arr[], int count)
 {
@@ -77,24 +85,31 @@ void writeImageToJTAG(bool *image) {
 void loop()
 {
   if (Serial.available() > 0) {
-    String strValueToSet = Serial.readStringUntil('\n');
-    int valueToSet = strValueToSet.toInt();
-    
-    if (valueToSet == 0 || valueToSet == 1) {
-      // Demo
-      bool image[810] = {};
-      image[800] = valueToSet;
+
+    int bytesRead = Serial.readBytesUntil('\n', inputBuffer, INPUT_BUFFER_SIZE);
+    if (bytesRead >= IMAGE_MIN_SIZE / 8) {
+      // Process serial input
+      for (int i = 0; i < bytesRead; i++) {
+        for (int j = 0; j < 8; j++) {
+          image[i*8 + j] = inputBuffer[i*8] & (1 << j); // Convert byte to binary
+        }
+      }
+      // Make sure the bit not set by serial input are cleared
+      for (int i = bytesRead*8; i < IMAGE_MAX_SIZE; i++) {
+        image[i] = false;
+      }
+
+      // Write image to JTAG
       writeImageToJTAG(image);
 
       // Wait
       delay(500);
   
-      // Get result
+      // Get and output result
       uint32_t inputs = readJTAG(0);
-      Serial.print("SNN_OUT: ");
       Serial.println(inputs);
     } else {
-      Serial.println("Input can only be 0 or 1!");
+      Serial.println("Image is invalid!");
     }
   }
 }
