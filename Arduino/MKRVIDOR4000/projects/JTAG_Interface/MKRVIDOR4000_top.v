@@ -162,51 +162,74 @@ SYSTEM_PLL PLL_inst(
 
 // ================================================
 // Your design here
-reg SNN_OUT = 0;
 
-reg [29:0] DATA; // Data from the JTAG
-reg [809:0] IMAGE; // Room for 810 bits of data (27*30 bits)
+wire [31:0] DATA [13:0];  // Data from the JTAG
+wire [1:0] SNN_OUT;  // Data to the JTAG
 
-wire PROGRESS;
+reg [799:0] IMAGE; // Room for 800 bits of data (25*32 bits)
+
+wire NEXT;
 wire FINISH;
-reg [8:0] chunkIndex = 0;
+reg [9:0] reg_offset = 0;
 integer i;
-integer regIndex;
+integer j;
 
 reg progressed = 0;
+reg start_SNN = 0;
 
 
-MyDesign MyDesign_inst(
+MyDesign MyDesign_inst (
 	.iCLK_MAIN(wCLK120),		// Attach main 120MHz clock
-	.DATA(DATA),
-	.PROGRESS(PROGRESS),
+	.IN_00(DATA[0]),
+	.IN_01(DATA[1]),
+	.IN_02(DATA[2]),
+	.IN_03(DATA[3]),
+	.IN_04(DATA[4]),
+	.IN_05(DATA[5]),
+	.IN_06(DATA[6]),
+	.IN_07(DATA[7]),
+	.IN_08(DATA[8]),
+	.IN_09(DATA[9]),
+	.IN_10(DATA[10]),
+	.IN_11(DATA[11]),
+	.IN_12(DATA[12]),
+	.IN_13(DATA[13]),
+	.NEXT(NEXT),
 	.FINISH(FINISH),
 	.SNN_OUT(SNN_OUT)
 );
 
-always @(posedge wCLK120)
-begin
-	if (PROGRESS && !progressed) begin
+run_network #(
+	.WIDTH(8),
+	.HEIGHT(7),
+	.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})
+) SNN (
+	.clk(wCLK120),
+	.pixels(IMAGE[6:0]),
+	.start(start_SNN),
+	.neuron_out(SNN_OUT)
+);
+
+always @(posedge wCLK120) begin
+	if (NEXT && !progressed) begin
 		progressed = 1;
-		for (i=0;i<30; i = i + 1) begin
-			regIndex = (chunkIndex*30)+i;
-			IMAGE[regIndex] = DATA[i]; // Copy from JTAG and place into the big register
+		for (i = 0; i < 14; i = i + 1) begin
+			reg_offset = 448 * FINISH + 32 * i;
+			if (!FINISH || i < 11) begin
+				for (j = 0; j < 32; j = j + 1) begin
+					IMAGE[reg_offset + j] = DATA[i][j];
+				end
+			end
 		end
-		
-		chunkIndex = chunkIndex + 1;
-		if (chunkIndex > 27) begin // 27 transfers of 30 bits necessary to transfer 784 bits of data
-			chunkIndex = 0;
-		end
-	end else if (!PROGRESS) begin
+	end else if (!NEXT) begin
 		progressed = 0;
 	end
 	
-	if (FINISH && chunkIndex > 0) begin
-		chunkIndex = 0; 
-		// Start SNN
-		// ...
-		// Return result
-		SNN_OUT = IMAGE[800];
+	if (FINISH && reg_offset > 0) begin
+		reg_offset = 0;
+		start_SNN = 1;
+	end else begin
+		start_SNN = 0;
 	end
 end
 
