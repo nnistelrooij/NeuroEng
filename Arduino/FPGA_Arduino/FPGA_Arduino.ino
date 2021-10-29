@@ -65,7 +65,7 @@ void loop()
   
       // Get and output result
       uint32_t output = readJTAG(0);
-      switch (output) {
+      /*switch (output) {
         case 1:
           Serial.println("I think it is a 7!");
           break;
@@ -75,7 +75,8 @@ void loop()
         default:
           Serial.println("I dont't know what it is");
           break;
-      }
+      }*/
+      Serial.println(output);
     } else {
       Serial.println("Image is invalid!");
     }

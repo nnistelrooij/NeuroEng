@@ -234,7 +234,7 @@ always @(posedge wCLK120) begin
 	end
 end
 
-assign SSN_OUT = neuron_out;
+assign SNN_OUT = neuron_out;
 
 // ================================================
 
