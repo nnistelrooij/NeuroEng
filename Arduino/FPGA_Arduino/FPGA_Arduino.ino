@@ -39,7 +39,7 @@ void writePixelsToJTAG() {
       for (int byteOffset = 0; byteOffset < 4; byteOffset++) {
         offset = JTAGOffset + 4 * registerOffset + byteOffset;
         if (offset < 98) {
-          value |= inputBuffer[offset] << (24 - 8 * byteOffset);
+          value |= inputBuffer[offset] << (8 * byteOffset); // 24 - 
         }
       }
 
@@ -57,6 +57,8 @@ void loop()
 
     int bytesRead = Serial.readBytes(inputBuffer, INPUT_BUFFER_SIZE);
     if (bytesRead >= INPUT_BUFFER_SIZE) {
+      inputBuffer[0] = 255;
+
       // Process serial input
       writePixelsToJTAG();
 
@@ -65,18 +67,12 @@ void loop()
   
       // Get and output result
       uint32_t output = readJTAG(0);
-      /*switch (output) {
-        case 1:
-          Serial.println("I think it is a 7!");
-          break;
-        case 2:
-          Serial.println("I think it is a 3!");
-          break;
-        default:
-          Serial.println("I dont't know what it is");
-          break;
-      }*/
+      Serial.print("In (byte0) / Out: ");
+      int intBuffer = inputBuffer[0];
+      Serial.print(intBuffer);
+      Serial.print(" / ");
       Serial.println(output);
+      
     } else {
       Serial.println("Image is invalid!");
     }
