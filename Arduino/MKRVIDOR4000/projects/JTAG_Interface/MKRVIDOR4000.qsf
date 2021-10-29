@@ -79,6 +79,24 @@ set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE EPCS16
 set_global_assignment -name VERILOG_NON_CONSTANT_LOOP_LIMIT 10000
 
 source ../../constraints/MKRVIDOR4000/vidor_s_pins.qsf
+
+set_global_assignment -name TOP_LEVEL_ENTITY run_network
+
+set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
+
+
+
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name QIP_FILE JTAG/synthesis/JTAG.qip
+set_global_assignment -name SDC_FILE ../../constraints/MKRVIDOR4000/vidor_s.sdc
+set_global_assignment -name QIP_FILE ../../ip/SYSTEM_PLL/SYSTEM_PLL.qip
+set_global_assignment -name VERILOG_FILE MKRVIDOR4000_top.v
+set_global_assignment -name BDF_FILE MyDesign.bdf
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
+set_global_assignment -name SYSTEMVERILOG_FILE divide_clock.sv
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12]
@@ -152,23 +170,6 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL
 set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en
 set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT
-
-set_global_assignment -name TOP_LEVEL_ENTITY MKRVIDOR4000_top
-
-set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
-
-
-
-set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name QIP_FILE JTAG/synthesis/JTAG.qip
-set_global_assignment -name SDC_FILE ../../constraints/MKRVIDOR4000/vidor_s.sdc
-set_global_assignment -name QIP_FILE ../../ip/SYSTEM_PLL/SYSTEM_PLL.qip
-set_global_assignment -name VERILOG_FILE MKRVIDOR4000_top.v
-set_global_assignment -name BDF_FILE MyDesign.bdf
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
-set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

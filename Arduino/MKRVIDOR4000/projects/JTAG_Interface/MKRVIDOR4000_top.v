@@ -178,15 +178,6 @@ integer j;
 reg progressed = 0;
 reg start_SNN = 0;
 
-wire slow_clock;
-
-divider D (
-	.clk(wCLK120),
-	.rst(!start_snn),
-	.w(8'b1),
-	.neuron_out(slow_clock)
-);
-
 
 MyDesign MyDesign_inst (
 	.iCLK_MAIN(wCLK120),		// Attach main 120MHz clock
@@ -214,13 +205,13 @@ run_network #(
 	.HEIGHT(7),
 	.WEIGHTS('{9'd255, 9'd255, 9'd255, 9'd255, 9'd255, 9'd255, 9'd255})
 ) SNN (
-	.clk(slow_clock),
+	.clk(wCLK120),
 	.pixels(IMAGE[6:0]),
 	.start(start_SNN),
 	.neuron_out(neuron_out)
 );
 
-always @(posedge slow_clock) begin
+always @(posedge wCLK120) begin
 	if (NEXT && !progressed) begin
 		progressed = 1;
 		for (i = 0; i < 14; i = i + 1) begin

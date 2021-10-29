@@ -12,7 +12,7 @@ module run_network
 );
 	reg rst = 1;
 	reg started = 0;
-	reg [WIDTH:0] cnt = 0;
+	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)):0] cnt = 0;
 
 	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
 		.clk(started * clk),
@@ -22,7 +22,7 @@ module run_network
 	);
 	
 	always @(posedge clk) begin
-		if (cnt == (2 ** (WIDTH + 1) - 1)) begin
+		if (cnt == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
 			started <= 0;
 		end else begin
 			started <= started | start;
@@ -58,14 +58,15 @@ module testbench_run_network;
 		start = 1;
 		#50 clk = 0;
 		start = 0;
-		for (i = 0; i < 1200; i = i + 1) begin
+		for (i = 0; i < 15000; i = i + 1) begin
 			#50 clk = !clk;
 		end
 		#50 clk = 1;
+		pixels = 7'b0000000;
 		start = 1;
 		#50 clk = 0;
 		start = 0;
-		for (i = 0; i < 1023; i = i + 1) begin
+		for (i = 0; i < 15000; i = i + 1) begin
 			#50 clk = !clk;
 		end
 	end
