@@ -9,13 +9,12 @@ module output2
 	input wire [HEIGHT - 1:0] inputs,
 	output neuron_out
 );
-	integer i;
-	reg [$clog2(HEIGHT * (2 ** WIDTH - 1)) - 1:0] balance = 2 ** $clog2(HEIGHT * (2 ** WIDTH - 1)) - HEIGHT * (2 ** WIDTH - 1);
+	reg [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance = 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
 	reg [$clog2(HEIGHT) - 1:0] idx = HEIGHT - 1;
 	
 	always @(posedge clk, negedge rst) begin
 		if (!rst) begin
-			balance = 2 ** $clog2(HEIGHT * (2 ** WIDTH - 1)) - HEIGHT * (2 ** WIDTH - 1);
+			balance = 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
 			idx = HEIGHT - 1;
 		end else begin
 			if (idx == (HEIGHT - 1)) begin

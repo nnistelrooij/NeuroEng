@@ -5,34 +5,37 @@ module run_network
 	parameter bit [WIDTH:0] WEIGHTS [HEIGHT - 1:0] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
 )
 (
-	input wire clk,
-	input wire [HEIGHT - 1:0] pixels,
-	input wire start,
+	input wire clk,  // clock signal
+	input wire [HEIGHT - 1:0] pixels,  // binary inputs
+	input wire start,  // active high start signal
+	// binary outputs; 00: don't know, 01: pos class, 10: neg class
 	output wire [1:0] neuron_out
 );
-	reg rst = 1;
-	reg started = 0;
-	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)):0] cnt = 0;
+	reg rst = 1;  // active low reset signal
+	reg running = 0;  // whether network is running
+	// number of iterations network has been running
+	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)) - 1:0] iters = 0;
 
 	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
-		.clk(started * clk),
+		.clk(running * clk),
 		.rst(rst),
 		.pixels(pixels),
 		.neuron_out(neuron_out[0])
 	);
 	
 	always @(posedge clk) begin
-		if (cnt == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
-			started <= 0;
+		if (iters == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
+			running <= 0;
+			iters = 0;
 		end else begin
-			started <= started | start;
+			running <= running | start;
+			iters = iters + running;
 		end
 		
 		rst = !(rst & start);
-		cnt = cnt + started;
 	end
 	
-	assign neuron_out[1] = rst & !started & !neuron_out[0];
+	assign neuron_out[1] = rst & !running & !neuron_out[0];
 endmodule
 
 

@@ -15,7 +15,7 @@ module delay(
 		previous_signal = rst & current_signal;
 	end
 	
-	assign neuron_out = clk * previous_signal;
+	assign neuron_out = clk & previous_signal;
 endmodule
 
 

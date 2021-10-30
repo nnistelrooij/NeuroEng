@@ -8,8 +8,8 @@ module divider
 	input wire [WIDTH - 1:0] w,
 	output neuron_out
 );
-	reg spike = 0;
 	reg [WIDTH - 1:0] membrane_potential = 0;
+	reg spike = 0;
 	
 	always @(negedge clk, negedge rst) begin
 		if (!rst) begin
@@ -21,7 +21,7 @@ module divider
 		end
 	end
 	
-	assign neuron_out = clk * spike;
+	assign neuron_out = clk & spike;
 endmodule
 
 

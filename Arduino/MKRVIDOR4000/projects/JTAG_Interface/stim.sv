@@ -9,7 +9,7 @@ module stim(
 		cnt = rst & !cnt;
 	end
 	
-	assign stim_out = clk * cnt;
+	assign stim_out = clk & cnt;
 endmodule
 
 

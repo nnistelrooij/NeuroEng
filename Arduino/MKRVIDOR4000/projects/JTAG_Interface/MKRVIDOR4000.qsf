@@ -80,7 +80,7 @@ set_global_assignment -name VERILOG_NON_CONSTANT_LOOP_LIMIT 10000
 
 source ../../constraints/MKRVIDOR4000/vidor_s_pins.qsf
 
-set_global_assignment -name TOP_LEVEL_ENTITY run_network
+set_global_assignment -name TOP_LEVEL_ENTITY MKRVIDOR4000_top
 
 set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 

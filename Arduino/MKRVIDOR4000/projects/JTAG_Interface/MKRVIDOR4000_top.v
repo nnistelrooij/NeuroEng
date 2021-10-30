@@ -203,7 +203,7 @@ MyDesign MyDesign_inst (
 run_network #(
 	.WIDTH(8),
 	.HEIGHT(7),
-	.WEIGHTS('{9'd255, 9'd255, 9'd255, 9'd255, 9'd255, 9'd255, 9'd255})
+	.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})
 ) SNN (
 	.clk(wCLK120),
 	.pixels(IMAGE[6:0]),
