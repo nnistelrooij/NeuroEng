@@ -23,12 +23,14 @@ module run_network
 		.neuron_out(neuron_out[0])
 	);
 	
-	always @(posedge clk) begin
-		if (iters == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
+	always @(posedge clk, posedge start) begin
+		if (start) begin
+			running <= 1;
+			iters = 0;
+		end else if (iters == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
 			running <= 0;
 			iters = 0;
 		end else begin
-			running <= running | start;
 			iters = iters + running;
 		end
 		
@@ -40,7 +42,7 @@ endmodule
 
 
 module testbench_run_network;
-	reg clk = 0;
+	reg clk = 1;
 	reg [6:0] pixels = 7'b1111111;
 	reg start = 0;
 	wire [1:0] neuron_out;
@@ -57,17 +59,17 @@ module testbench_run_network;
 		for (i = 0; i < 100; i = i + 1) begin
 			#50 clk = !clk;
 		end
-		#50 clk = 1;
-		start = 1;
 		#50 clk = 0;
+		start = 1;
+		#50 clk = 1;
 		start = 0;
-		for (i = 0; i < 15000; i = i + 1) begin
+		for (i = 0; i < 8000; i = i + 1) begin
 			#50 clk = !clk;
 		end
-		#50 clk = 1;
+		#50 clk = 0;
 		pixels = 7'b0000000;
 		start = 1;
-		#50 clk = 0;
+		#50 clk = 1;
 		start = 0;
 		for (i = 0; i < 15000; i = i + 1) begin
 			#50 clk = !clk;
