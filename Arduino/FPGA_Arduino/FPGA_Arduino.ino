@@ -57,8 +57,6 @@ void loop()
 
     int bytesRead = Serial.readBytes(inputBuffer, INPUT_BUFFER_SIZE);
     if (bytesRead >= INPUT_BUFFER_SIZE) {
-      inputBuffer[0] = 255;
-
       // Process serial input
       writePixelsToJTAG();
 
