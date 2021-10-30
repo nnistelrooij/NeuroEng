@@ -6,7 +6,11 @@ module stim(
 	reg cnt = 0;
 	
 	always @(negedge clk, negedge rst) begin
-		cnt = rst & !cnt;
+		if (!rst) begin
+			cnt = 0;
+		end else begin
+			cnt = !cnt;
+		end
 	end
 	
 	assign stim_out = clk & cnt;

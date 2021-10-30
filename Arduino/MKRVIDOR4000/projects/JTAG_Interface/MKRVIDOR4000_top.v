@@ -206,8 +206,8 @@ run_network #(
 	.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})
 ) SNN (
 	.clk(wCLK120),
-	.pixels(IMAGE[6:0]),
-	.start(start_SNN),
+	.pixels(DATA[0][6:0]),
+	.start(clk & start_SNN),
 	.neuron_out(neuron_out)
 );
 
@@ -218,7 +218,7 @@ always @(posedge wCLK120) begin
 			reg_offset = 448 * FINISH + 32 * i;
 			if (!FINISH || i < 11) begin
 				for (j = 0; j < 32; j = j + 1) begin
-					IMAGE[reg_offset + j] = DATA[i][j];
+					IMAGE[reg_offset + j] <= DATA[i][j];
 				end
 			end
 		end

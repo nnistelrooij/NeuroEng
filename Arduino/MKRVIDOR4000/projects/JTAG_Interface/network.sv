@@ -68,7 +68,7 @@ endmodule
 
 
 module testbench_network;
-	reg clk = 0;
+	reg clk = 1;
 	reg rst = 1;
 	reg [6:0] pixels = 7'b0101010;
 	wire neuron_out;

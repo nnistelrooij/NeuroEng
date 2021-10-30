@@ -11,33 +11,30 @@ module run_network
 	// binary outputs; 00: don't know, 01: pos class, 10: neg class
 	output wire [1:0] neuron_out
 );
-	reg rst = 1;  // active low reset signal
 	reg running = 0;  // whether network is running
 	// number of iterations network has been running
 	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)) - 1:0] iters = 0;
 
 	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
-		.clk(running * clk),
-		.rst(rst),
+		.clk(running & clk),
+		.rst(!start),
 		.pixels(pixels),
 		.neuron_out(neuron_out[0])
 	);
 	
 	always @(posedge clk, posedge start) begin
 		if (start) begin
-			running <= 1;
+			running = 1;
 			iters = 0;
 		end else if (iters == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
-			running <= 0;
+			running = 0;
 			iters = 0;
 		end else begin
 			iters = iters + running;
 		end
-		
-		rst = !(rst & start);
 	end
 	
-	assign neuron_out[1] = rst & !running & !neuron_out[0];
+	assign neuron_out[1] = !start & !running & !neuron_out[0];
 endmodule
 
 
@@ -63,7 +60,7 @@ module testbench_run_network;
 		start = 1;
 		#50 clk = 1;
 		start = 0;
-		for (i = 0; i < 8000; i = i + 1) begin
+		for (i = 0; i < 15000; i = i + 1) begin
 			#50 clk = !clk;
 		end
 		#50 clk = 0;

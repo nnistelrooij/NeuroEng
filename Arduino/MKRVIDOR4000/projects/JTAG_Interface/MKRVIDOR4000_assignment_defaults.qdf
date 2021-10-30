@@ -317,6 +317,7 @@ set_global_assignment -name STRATIXV_CONFIGURATION_SCHEME "Passive Serial" -fami
 set_global_assignment -name VID_OPERATION_MODE "PMBus Slave"
 set_global_assignment -name USE_CONF_DONE AUTO
 set_global_assignment -name USE_PWRMGT_SCL AUTO
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_global_assignment -name USE_PWRMGT_SDA AUTO
 set_global_assignment -name USE_PWRMGT_ALERT AUTO
 set_global_assignment -name USE_INIT_DONE AUTO
