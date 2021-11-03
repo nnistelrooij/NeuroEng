@@ -23,7 +23,7 @@ if __name__ == '__main__':
     data = np.load(test_file_path)
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
-    ser = serial.Serial(port='COM4', baudrate=115_200)
+    ser = serial.Serial(port='COM3', baudrate=115_200)
     def on_close(event):
         ser.close()
         exit()
@@ -42,12 +42,15 @@ if __name__ == '__main__':
         plot.set_data(images[idx])
         plt.title(f'MNIST digit {idx}')
 
-        encodedImage = np.packbits(images[idx]).tobytes()
+        # images[idx][:] = 0
+        # images[idx][19, 11] = 1
+        # images[idx][4, 12] = 1
+        encodedImage = np.packbits(images[idx], bitorder='little').tobytes()
         print("Image encoded, now writing to the serial")
         ser.write(encodedImage)
         ser.flush()
         print("Image uploaded to Arduino")
-        time.sleep(1)
+        time.sleep(2)
         from_arduino = ser.read_all()
         if from_arduino:
             print(from_arduino.decode("utf-8"))

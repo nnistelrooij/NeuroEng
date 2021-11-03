@@ -39,7 +39,7 @@ void writePixelsToJTAG() {
       for (int byteOffset = 0; byteOffset < 4; byteOffset++) {
         offset = JTAGOffset + 4 * registerOffset + byteOffset;
         if (offset < 98) {
-          value |= inputBuffer[offset] << (8 * byteOffset); // 24 - 
+          value |= (uint32_t)(inputBuffer[offset]) << (8 * byteOffset); // 24 - 
         }
       }
 
@@ -48,6 +48,7 @@ void writePixelsToJTAG() {
 
     // Signal FPGA to store data from JTAG in register
     writeJTAG(JTAG_REGS - 1, (JTAGOffset == 56) ? 3 : 1);
+    delay(10);
   }
 }
 
@@ -61,7 +62,7 @@ void loop()
       writePixelsToJTAG();
 
       // Wait, just to be sure
-      delay(1);
+      delay(1000);
   
       // Get and output result
       uint32_t output = readJTAG(0);
@@ -70,6 +71,7 @@ void loop()
       Serial.print(intBuffer);
       Serial.print(" / ");
       Serial.println(output);
+      Serial.println((uint32_t)(readJTAG(1)));
       
     } else {
       Serial.println("Image is invalid!");

@@ -39,7 +39,7 @@ module network
 					.w(WEIGHTS[i][WIDTH - 1:0]),
 					.neuron_out(pixels_out_neg[i])
 				);
-			end else begin			
+			end else if (WEIGHTS[i] != 0) begin			
 				divider #(.WIDTH(WIDTH)) Dpos (
 					.clk(stim & pixels[i]),
 					.rst(rst),
