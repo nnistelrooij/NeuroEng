@@ -2,6 +2,7 @@ module run_network
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
+	parameter NUM_POS_WEIGHTS = 3,
 	parameter bit [WIDTH:0] WEIGHTS [0:HEIGHT - 1] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
 )
 (
@@ -10,13 +11,13 @@ module run_network
 	input wire start,  // active high start signal
 	// binary outputs; 00: don't know, 01: pos class, 10: neg class
 	output wire [1:0] neuron_out,
-	output [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance_out
+	output [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance_out
 );
 	reg running = 0;  // whether network is running
 	// number of iterations network has been running
 	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)) - 1:0] iters = 0;
 
-	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
+	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .NUM_POS_WEIGHTS(NUM_POS_WEIGHTS), .WEIGHTS(WEIGHTS)) N (
 		.clk(running & clk),
 		.rst(!start),
 		.pixels(pixels),

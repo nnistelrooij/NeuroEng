@@ -71,7 +71,7 @@ void loop()
       Serial.print(intBuffer);
       Serial.print(" / ");
       Serial.println(output);
-      Serial.println((uint32_t)(readJTAG(1)));
+      Serial.println((uint32_t)readJTAG(1));
       
     } else {
       Serial.println("Image is invalid!");

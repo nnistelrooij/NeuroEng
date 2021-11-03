@@ -172,10 +172,9 @@ wire NEXT;
 wire FINISH;
 reg [9:0] reg_offset = 0;
 wire [1:0] neuron_out;
-integer i;
-integer j;
+reg [3:0] i;
+reg [5:0] j;
 
-reg [$clog2(6 * (2 ** 8)) - 1: 0] balance_out;
 wire [31:0] DEBUG;
 
 reg progressed = 0;
@@ -207,17 +206,36 @@ MyDesign MyDesign_inst (
 	.SNN_OUT(SNN_OUT)
 );
 
+// 28 pixels: works
+// 33 pixels:
+//		negative; only partially applies pixels
+//    positive; does not
+// 50 pixels: does not react to pixels
 run_network #(
 	.WIDTH(8),
-	.HEIGHT(6),
-	.WEIGHTS('{9'd511, 9'd255, 9'd0, 9'd511, 9'd255, 9'd0})
+	.HEIGHT(33),
+	.NUM_POS_WEIGHTS(17),
+	.WEIGHTS('{9'd0,9'd260,9'd261,9'd7,9'd0,9'd258,9'd0,9'd273,9'd261,9'd266,9'd2,9'd258,9'd6,9'd2,9'd264,9'd1,9'd260,9'd0,9'd1,9'd260,9'd5,9'd1,9'd0,9'd265,9'd259,9'd260,9'd6,9'd15,9'd0,9'd270,9'd264,9'd5,9'd262})
 ) SNN (
 	.clk(spike_clock),
-	.pixels(IMAGE[5:0]),
+	.pixels(IMAGE[32:0]),
 	.start(wCLK8 & start_SNN),
 	.neuron_out(neuron_out),
-	.balance_out(balance_out)
+	.balance_out(DEBUG)
 );
+
+//run_network #(
+//	.WIDTH(8),
+//	.HEIGHT(7),
+//	.NUM_POS_WEIGHTS(3),
+//	.WEIGHTS('{9'd255, 9'd1, 9'd60, 9'd260, 9'd260, 9'd257, 9'd511})
+//) SNN (
+//	.clk(spike_clock),
+//	.pixels(IMAGE[6:0]),
+//	.start(wCLK8 & start_SNN),
+//	.neuron_out(neuron_out),
+//	.balance_out(DEBUG)
+//);
 
 always @(posedge wCLK8) begin
 	if (NEXT && !progressed) begin
@@ -249,7 +267,6 @@ end
 
 assign SNN_OUT = neuron_out;
 assign spike_clock = (cnt == 0) * wCLK8;
-assign DEBUG = balance_out;
 
 // ================================================
 

@@ -1,25 +1,29 @@
 module output2
 #(
 	parameter WIDTH = 8,
-	parameter HEIGHT = 7
+	parameter HEIGHT = 7,
+	parameter NUM_POS_WEIGHTS = 3
 )
 (
 	input wire clk,
 	input wire rst,
 	input wire [HEIGHT - 1:0] inputs,
 	output neuron_out,
-	output [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance_out
+	output [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance_out
 );
-	reg [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance = 0; //2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
-	reg [$clog2(HEIGHT) - 1:0] idx = HEIGHT - 1;
-	reg [$clog2(HEIGHT) + 2:0] cnt = HEIGHT * 4;
 	
+	// reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); //2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
+	reg [13:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1);
+	reg [$clog2(HEIGHT) - 1:0] idx = HEIGHT - 1;
+	reg [$clog2(HEIGHT * 4 + 1) - 1:0] cnt = 0;
+	
+	integer i;	
 	always @(posedge clk, negedge rst) begin
-		if (!rst) begin
-			balance = 0; // 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
+		if (!rst) begin			
+			balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); // 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
 			idx = HEIGHT - 1;
-			cnt = HEIGHT * 4;
-		end else if (cnt == 0) begin
+			cnt = 0;
+		end else if (cnt == (HEIGHT * 4)) begin
 			if (idx == (HEIGHT - 1)) begin
 				idx = 0;
 			end else begin
@@ -30,7 +34,7 @@ module output2
 				balance = balance + inputs[idx];
 			end
 		end else begin
-			cnt = cnt - 1;
+			cnt = cnt + 1;
 		end
 	end
 	

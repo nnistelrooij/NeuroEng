@@ -23,7 +23,7 @@ if __name__ == '__main__':
     data = np.load(test_file_path)
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
-    ser = serial.Serial(port='COM4', baudrate=115_200)
+    ser = serial.Serial(port='COM3', baudrate=115_200)
     def on_close(event):
         ser.close()
         exit()
@@ -43,14 +43,15 @@ if __name__ == '__main__':
         plt.title(f'MNIST digit {idx}')
 
         images[idx][:] = 0
-        #images[idx][0, 1] = 1
-        images[idx][0, 1] = 1
-        images[idx][0, 0] = 1
-        images[idx][0, 3] = 1
-        #images[idx][27, 27] = 1
-        #images[idx][1, 1] = 1
-        # images[idx][19, 11] = 1
-        # images[idx][4, 12] = 1
+        # images[idx][0, 6] = 1  # -255
+        # images[idx][0, 5] = 1  # -1
+        images[idx][0, 1] = 1  # +1
+        # images[idx][0, 0] = 1  # +255
+
+        # images[idx][0, 3] = 1
+        # images[idx][4, 12] = 1  # minimum
+        # images[idx][19, 11] = 1  // maximum
+        # # images[idx][0, 1] = 1
         encodedImage = np.packbits(images[idx], bitorder='little').tobytes()
         print("Image encoded, now writing to the serial")
         ser.write(encodedImage)

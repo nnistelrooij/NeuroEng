@@ -231,7 +231,7 @@ set_global_assignment -name RESERVE_DCLK_AFTER_CONFIGURATION "USE AS REGULAR IO"
 
 set_global_assignment -name TOP_LEVEL_ENTITY MKRVIDOR4000_top
 
-set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
+set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE AREA"
 
 
 
@@ -240,79 +240,79 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM*
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE
-set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36
-set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET
-set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX*
-set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK
-set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL
-set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA
-set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D*
-set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D*
-set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK*
-set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA
-set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL
-set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en
-set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM* -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0] -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36 -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX* -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA -entity MKRVIDOR4000_top
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D* -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D* -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK* -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT -entity MKRVIDOR4000_top
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT -entity MKRVIDOR4000_top
 set_global_assignment -name EDA_DESIGN_ENTRY_SYNTHESIS_TOOL "Precision Synthesis"
 set_global_assignment -name EDA_LMF_FILE mentor.lmf -section_id eda_design_synthesis
 set_global_assignment -name EDA_INPUT_DATA_FORMAT VQM -section_id eda_design_synthesis
@@ -333,7 +333,319 @@ set_global_assignment -name VERILOG_FILE MKRVIDOR4000_top.v
 set_global_assignment -name BDF_FILE MyDesign.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE divide_clock.sv
 set_global_assignment -name SYSTEMVERILOG_FILE test_all.sv
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D*
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM*
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1]
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK*
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D*
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX*
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name TOP_LEVEL_ENTITY run_network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0] -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM* -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0] -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn -entity network
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36 -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET -entity network
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX* -entity network
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA -entity network
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D* -entity network
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D* -entity network
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK* -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en -entity network
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT -entity network
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT -entity network
+set_global_assignment -name SYSTEMVERILOG_FILE underflow.sv
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity underflow -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity underflow -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity underflow -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0] -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM* -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0] -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn -entity underflow
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36 -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET -entity underflow
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX* -entity underflow
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA -entity underflow
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D* -entity underflow
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D* -entity underflow
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK* -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en -entity underflow
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT -entity underflow
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT -entity underflow
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity underflow -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity divider -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity divider -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity divider -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[14] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[13] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[12] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[11] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[10] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[9] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[8] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[7] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[6] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[5] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[4] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[3] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[2] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[1] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to bSDRAM_DQ[0] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[11] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[10] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[9] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[8] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[7] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[6] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[5] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[4] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[3] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[2] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[1] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_ADDR[0] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[1] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_BA[0] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CASn -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CKE -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CLK -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_CSn -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[1] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_DQM[0] -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_RASn -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to oSDRAM_WEn -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM* -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[11] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[10] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[9] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[8] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[7] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[6] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[5] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[4] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[3] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[2] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[1] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_ADDR[0] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[1] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_BA[0] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[1] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_DQM[0] -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_RASn -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CASn -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_WEn -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CSn -entity divider
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to oSDRAM_CKE -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bWM_PIO36 -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oWM_RESET -entity divider
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_TX* -entity divider
+set_instance_assignment -name IO_STANDARD LVDS -to oHDMI_CLK -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SCL -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bHDMI_SDA -entity divider
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to iMIPI_D* -entity divider
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_D* -entity divider
+set_instance_assignment -name IO_STANDARD LVDS -to iMIPI_CLK* -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SDA -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to bMIPI_SCL -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to panel_en -entity divider
+set_instance_assignment -name IO_STANDARD "2.5 V" -to oSAM_INT -entity divider
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to iSAM_INT -entity divider
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity divider -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity network -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity network -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity network -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity network -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity MKRVIDOR4000_top -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity MKRVIDOR4000_top -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity MKRVIDOR4000_top -section_id Top
+set_global_assignment -name ALLOW_REGISTER_RETIMING ON
+set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE BALANCED
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity MKRVIDOR4000_top -section_id Top
