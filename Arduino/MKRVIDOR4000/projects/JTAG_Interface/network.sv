@@ -2,13 +2,14 @@ module network
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
-	parameter bit [WIDTH:0] WEIGHTS [HEIGHT - 1:0] = '{9'd60, 9'd60, 9'd60, 9'd260, 9'd260, 9'd260, 9'd260}
+	parameter bit [WIDTH:0] WEIGHTS [0:HEIGHT - 1] = '{9'd60, 9'd60, 9'd60, 9'd260, 9'd260, 9'd260, 9'd260}
 )
 (
 	input wire clk,  // clock signal
 	input wire rst,  // active low reset signal
 	input wire [HEIGHT - 1:0] pixels,  // binary inputs
-	output neuron_out  // binary output
+	output neuron_out,  // binary output
+	output [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance_out
 );
 	wire slow_clk;
 	wire stim;
@@ -39,7 +40,7 @@ module network
 					.w(WEIGHTS[i][WIDTH - 1:0]),
 					.neuron_out(pixels_out_neg[i])
 				);
-			end else if (WEIGHTS[i] != 0) begin			
+			end else if (WEIGHTS[i] != 0) begin
 				divider #(.WIDTH(WIDTH)) Dpos (
 					.clk(stim & pixels[i]),
 					.rst(rst),
@@ -60,7 +61,8 @@ module network
 		.clk(clk),
 		.rst(rst),
 		.inputs(pixels_out),
-		.neuron_out(neuron_out)
+		.neuron_out(neuron_out),
+		.balance_out(balance_out)
 	);
 	
 	assign pixels_out = (stim * ~pixels_out_neg) | pixels_out_pos;

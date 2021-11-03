@@ -16,8 +16,15 @@ module divider
 			membrane_potential = 0;
 			spike = 0;
 		end else begin
-			membrane_potential = membrane_potential + w;
-			spike = membrane_potential < w;
+			if ((2**WIDTH - 1) - membrane_potential <= w) begin
+				spike = 1;
+				membrane_potential = w - ((2**WIDTH - 1) - membrane_potential);
+			end else begin
+				spike = 0;
+				membrane_potential = membrane_potential + w;
+			end
+			//membrane_potential = membrane_potential + w;
+			//spike = membrane_potential < w;
 		end
 	end
 	

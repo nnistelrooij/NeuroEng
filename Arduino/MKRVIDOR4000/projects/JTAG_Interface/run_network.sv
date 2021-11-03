@@ -2,14 +2,15 @@ module run_network
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
-	parameter bit [WIDTH:0] WEIGHTS [HEIGHT - 1:0] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
+	parameter bit [WIDTH:0] WEIGHTS [0:HEIGHT - 1] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
 )
 (
 	input wire clk,  // clock signal
 	input wire [HEIGHT - 1:0] pixels,  // binary inputs
 	input wire start,  // active high start signal
 	// binary outputs; 00: don't know, 01: pos class, 10: neg class
-	output wire [1:0] neuron_out
+	output wire [1:0] neuron_out,
+	output [$clog2(HEIGHT * (2 ** WIDTH)) - 1:0] balance_out
 );
 	reg running = 0;  // whether network is running
 	// number of iterations network has been running
@@ -19,14 +20,15 @@ module run_network
 		.clk(running & clk),
 		.rst(!start),
 		.pixels(pixels),
-		.neuron_out(neuron_out[0])
+		.neuron_out(neuron_out[0]),
+		.balance_out(balance_out)
 	);
 	
 	always @(posedge clk, posedge start) begin
 		if (start) begin
 			running = 1;
 			iters = 0;
-		end else if (iters == (HEIGHT * 2 ** (WIDTH + 2) - 1)) begin
+		end else if (iters == (HEIGHT * (2 ** (WIDTH + 2)) - 1)) begin
 			running = 0;
 			iters = 0;
 		end else begin
@@ -43,12 +45,14 @@ module testbench_run_network;
 	reg [6:0] pixels = 7'b1111111;
 	reg start = 0;
 	wire [1:0] neuron_out;
+	wire [10:0] balance_out;
 	
 	run_network #(.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})) RN (
 		.clk(clk),
 		.pixels(pixels),
 		.start(start),
-		.neuron_out(neuron_out)
+		.neuron_out(neuron_out),
+		.balance_out(balance_out)
 	);
 	
 	initial begin
