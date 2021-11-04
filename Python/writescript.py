@@ -31,8 +31,12 @@ if __name__ == '__main__':
     data = np.load(test_file_path)
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
-    num_images = 1000
-    start_idx = 0
+    # num_images = 1000
+    # start_idx = 0
+    # images, labels = images[start_idx:start_idx + num_images], labels[start_idx:start_idx + num_images]
+
+    num_images = 1038
+    start_idx = 1000
     images, labels = images[start_idx:start_idx + num_images], labels[start_idx:start_idx + num_images]
 
     base = f"""module run_network
