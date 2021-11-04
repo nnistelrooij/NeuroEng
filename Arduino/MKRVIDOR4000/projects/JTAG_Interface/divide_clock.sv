@@ -30,7 +30,7 @@ module testbench_divide_clock;
 	reg clk = 0;
 	wire clk_out;
 	
-	divide_clock #(.DENOM(5)) DC (
+	divide_clock #(.DENOM(33)) DC (
 		.clk(clk),
 		.rst(rst),
 		.clk_out(clk_out)
