@@ -7,34 +7,27 @@ module output2
 (
 	input wire clk,
 	input wire rst,
-	input wire [HEIGHT - 1:0] inputs,
+	input wire reset_circuit,
+	input wire pixel,
 	output neuron_out,
 	output [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance_out
 );
 	
 	// reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); //2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
-	reg [13:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1);
-	reg [$clog2(HEIGHT) - 1:0] idx = HEIGHT - 1;
+	reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1);
 	reg [$clog2(HEIGHT * 4 + 1) - 1:0] cnt = 0;
 	
 	integer i;	
-	always @(posedge clk, negedge rst) begin
+	always @(posedge clk, negedge rst, negedge reset_circuit) begin
 		if (!rst) begin			
 			balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); // 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
-			idx = HEIGHT - 1;
 			cnt = 0;
-		end else if (cnt == (HEIGHT * 4)) begin
-			if (idx == (HEIGHT - 1)) begin
-				idx = 0;
-			end else begin
-				idx = idx + 1;
-			end
-			
+		end else if (!reset_circuit) begin
+		
+		end else begin			
 			if (balance != HEIGHT * (2 ** WIDTH - 1)) begin  // has not yet overflowed
-				balance = balance + inputs[idx];
+				balance = balance + pixel;
 			end
-		end else begin
-			cnt = cnt + 1;
 		end
 	end
 	
@@ -53,7 +46,7 @@ module testbench_output;
 	output2 Out (
 		.clk(clk),
 		.rst(rst),
-		.inputs(inputs),
+		.pixel(1),
 		.neuron_out(neuron_out),
 		.balance_out(balance_out)
 	);

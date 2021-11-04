@@ -45,7 +45,7 @@ if __name__ == '__main__':
         images[idx][:] = 0
         # images[idx][0, 6] = 1  # -255
         # images[idx][0, 5] = 1  # -1
-        images[idx][0, 1] = 1  # +1
+        # images[idx][0, 1] = 1  # +1
         # images[idx][0, 0] = 1  # +255
 
         # images[idx][0, 3] = 1

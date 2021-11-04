@@ -47,13 +47,15 @@ module testbench_run_network;
 	reg start = 0;
 	wire [1:0] neuron_out;
 	wire [10:0] balance_out;
+	wire reset_out;
 	
 	run_network #(.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})) RN (
 		.clk(clk),
 		.pixels(pixels),
 		.start(start),
 		.neuron_out(neuron_out),
-		.balance_out(balance_out)
+		.balance_out(balance_out),
+		.reset_out(reset_out)
 	);
 	
 	initial begin
