@@ -23,16 +23,7 @@ if __name__ == '__main__':
     data = np.load(test_file_path)
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
-    strImage = ""
-    i = 1 #i=4 === 3, i=0 === 7, i
-    print(images[i])
-    for bitStream in reversed(images[i]):
-        for bit in reversed(bitStream):
-            strImage += str(bit)
-    print(strImage)
-    exit()
-
-    ser = serial.Serial(port='COM4', baudrate=115_200)
+    ser = serial.Serial(port='COM3', baudrate=115_200)
     def on_close(event):
         ser.close()
         exit()
@@ -54,7 +45,7 @@ if __name__ == '__main__':
         images[idx][:] = 0
         # images[idx][0, 6] = 1  # -255
         # images[idx][0, 5] = 1  # -1
-        # images[idx][0, 1] = 1  # +1
+        images[idx][0, 1] = 1  # +1
         # images[idx][0, 0] = 1  # +255
 
         # images[idx][0, 3] = 1

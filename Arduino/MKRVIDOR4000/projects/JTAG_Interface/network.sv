@@ -28,22 +28,23 @@ module network
 	reg [$clog2(HEIGHT) - 1:0] pixel_idx = 0;
 	reg polarity = 0;
 	reg [$clog2(2**(WIDTH + 1) + 2) - 1:0] cnt = 0;
+	wire stim_out;
 	
 	stim S (
 		.clk(clk),
 		.rst(rst & reset_circuit),
-		.stim_out(stim)
+		.stim_out(stim_out)
 	);
 	
 	divider #(.WIDTH(WIDTH)) Dneg (
-		.clk(!polarity & stim & pixels[pixel_idx]),
+		.clk(!polarity & stim_out & pixels[pixel_idx]),
 		.rst(rst & reset_circuit),
 		.w(WEIGHTS[pixel_idx][WIDTH - 1:0]),
 		.neuron_out(pixel_neg)
 	);
 	
 	divider #(.WIDTH(WIDTH)) Dpos (
-		.clk(polarity & stim & pixels[pixel_idx]),
+		.clk(polarity & stim_out & pixels[pixel_idx]),
 		.rst(rst & reset_circuit),
 		.w(WEIGHTS[pixel_idx][WIDTH - 1:0]),
 		.neuron_out(tmp)
@@ -75,7 +76,7 @@ module network
 	
 	
 	
-	assign pixel_out = reset_circuit & ((stim & !pixel_neg) | pixel_pos);
+	assign pixel_out = reset_circuit & ((stim_out & !pixel_neg) | pixel_pos);
 	assign reset_circuit = cnt != 0;
 //	assign pixel_out_out = pixel_out;
 //	assign reset_out = reset_circuit;
