@@ -63,7 +63,7 @@ void loop()
 
       // Wait, just to be sure
       // delayMicroseconds(10);
-      delay(100);
+      delay(1000);
   
       // Get and output result
       uint32_t output = readJTAG(0);

@@ -278,7 +278,7 @@ always @(posedge wCLK8) begin
 end
 
 assign SNN_OUT = neuron_out;
-assign spike_clock = (cnt == 0) * wCLK8;
+assign spike_clock = (cnt == 0) * wCLK8; 
 
 // ================================================
 
