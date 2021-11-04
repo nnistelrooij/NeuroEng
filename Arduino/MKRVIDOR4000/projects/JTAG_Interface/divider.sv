@@ -45,5 +45,12 @@ module testbench_divider;
 		for (i = 0; i < 10000; i = i + 1) begin
 			#50 clk = !clk;
 		end
+		rst = 0;
+		#50;
+		rst = 1;
+		#50;
+		for (i = 0; i < 10000; i = i + 1) begin
+			#50 clk = !clk;
+		end
 	end
 endmodule

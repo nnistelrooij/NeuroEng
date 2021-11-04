@@ -7,11 +7,11 @@ module delay(
 	reg previous_signal = 0;
 	reg current_signal = 0;
 	
-	always @(posedge clk, negedge rst) begin
-		current_signal = rst & signal;
+	always @(posedge clk, posedge signal, negedge rst) begin
+		current_signal	= rst & signal;
 	end
 	
-	always @(negedge clk, negedge rst) begin
+	always @(negedge clk, negedge signal, negedge rst) begin
 		previous_signal = rst & current_signal;
 	end
 	
@@ -22,14 +22,9 @@ endmodule
 module testbench_delay;
 	reg clk = 0;
 	reg rst = 1;
+	reg signal_tmp = 0;
 	wire signal;
 	wire neuron_out;
-	
-	stim S (
-		.clk(clk),
-		.rst(rst),
-		.stim_out(signal)
-	);
 	
 	delay D (
 		.clk(clk),
@@ -43,6 +38,12 @@ module testbench_delay;
 		#200
 		for (i = 0; i < 100; i = i + 1) begin
 			#50 clk = !clk;
+			if (i & 1'b1 == 1) begin
+				signal_tmp = !signal_tmp;
+			end
 		end
 	end
+	
+	// assign signal = !clk;
+	assign signal = clk & signal_tmp;
 endmodule

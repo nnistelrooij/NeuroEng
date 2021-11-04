@@ -15,7 +15,7 @@ module run_network
 );
 	reg running = 0;  // whether network is running
 	// number of iterations network has been running
-	reg [$clog2(HEIGHT * 2 ** (WIDTH + 2)) - 1:0] iters = 0;
+	reg [$clog2(HEIGHT * (2 **(WIDTH + 1) + 2)) - 1:0] iters = 0;
 
 	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .NUM_POS_WEIGHTS(NUM_POS_WEIGHTS), .WEIGHTS(WEIGHTS)) N (
 		.clk(running & clk),
@@ -29,7 +29,7 @@ module run_network
 		if (start) begin
 			running = 1;
 			iters = 0;
-		end else if (iters == (HEIGHT * (2 ** (WIDTH + 2)) - 1)) begin
+		end else if (iters == (HEIGHT * (2 **(WIDTH + 1) + 2) - 1)) begin
 			running = 0;
 			iters = 0;
 		end else begin
@@ -42,7 +42,7 @@ endmodule
 
 
 module testbench_run_network;
-	reg clk = 1;
+	reg clk = 0;
 	reg [6:0] pixels = 7'b1111111;
 	reg start = 0;
 	wire [1:0] neuron_out;
@@ -54,8 +54,8 @@ module testbench_run_network;
 		.pixels(pixels),
 		.start(start),
 		.neuron_out(neuron_out),
-		.balance_out(balance_out),
-		.reset_out(reset_out)
+		.balance_out(balance_out)
+		// .reset_out(reset_out)
 	);
 	
 	initial begin
@@ -67,7 +67,7 @@ module testbench_run_network;
 		start = 1;
 		#50 clk = 1;
 		start = 0;
-		for (i = 0; i < 15000; i = i + 1) begin
+		for (i = 0; i < 8000; i = i + 1) begin
 			#50 clk = !clk;
 		end
 		#50 clk = 0;
@@ -75,7 +75,7 @@ module testbench_run_network;
 		start = 1;
 		#50 clk = 1;
 		start = 0;
-		for (i = 0; i < 15000; i = i + 1) begin
+		for (i = 0; i < 8000; i = i + 1) begin
 			#50 clk = !clk;
 		end
 	end

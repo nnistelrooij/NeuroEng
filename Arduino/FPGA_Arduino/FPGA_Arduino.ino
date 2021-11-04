@@ -62,7 +62,8 @@ void loop()
       writePixelsToJTAG();
 
       // Wait, just to be sure
-      delay(1000);
+      // delayMicroseconds(10);
+      delay(100);
   
       // Get and output result
       uint32_t output = readJTAG(0);
