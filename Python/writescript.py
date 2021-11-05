@@ -145,55 +145,7 @@ endmodule
 
     import re
     final_string = re.sub('\{\}', in_string, base)
-    with open(r'..\Arduino\MKRVIDOR4000\projects\JTAG_Interface\run_network.sv', 'w') as f:
+    with open(r'code.sv', 'w') as f:#r'..\Arduino\MKRVIDOR4000\projects\JTAG_Interface\run_network.sv', 'w') as f:
         f.write(final_string)
 
     exit()
-
-    ser = serial.Serial(port='COM4', baudrate=115_200)
-
-
-    def on_close(event):
-        ser.close()
-        exit()
-
-
-    fig = plt.figure()
-    fig.canvas.mpl_connect('close_event', on_close)
-
-    plot = plt.imshow(images[0])
-    plt.axis('off')
-    plt.title('MNIST digit')
-    plt.ion()
-    plt.show()
-
-    while ser.isOpen():
-        idx = random.randrange(images.shape[0])
-        plot.set_data(images[idx])
-        plt.title(f'MNIST digit {idx}')
-
-        images[idx][:] = 0
-        # images[idx][0, 6] = 1  # -255
-        # images[idx][0, 5] = 1  # -1
-        # images[idx][0, 1] = 1  # +1
-        # images[idx][0, 0] = 1  # +255
-
-        # images[idx][0, 3] = 1
-        # images[idx][4, 12] = 1  # minimum
-        # images[idx][19, 11] = 1  // maximum
-        # # images[idx][0, 1] = 1
-        encodedImage = np.packbits(images[idx], bitorder='little').tobytes()
-        print("Image encoded, now writing to the serial")
-        ser.write(encodedImage)
-        ser.flush()
-        print("Image uploaded to Arduino")
-        time.sleep(2)
-        from_arduino = ser.read_all()
-        if from_arduino:
-            print(from_arduino.decode("utf-8"))
-        else:
-            print('Arduino did not output anything')
-
-        input('Press [Enter] for the next image.')
-
-    print('Serial closed')
