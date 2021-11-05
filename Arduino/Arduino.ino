@@ -2,24 +2,22 @@
 #include "FPGA_Controller.h"
 
 #define JTAG_REGS 15
+#define INPUT_BUFFER_SIZE 98
 
-const int INPUT_BUFFER_SIZE = 98;
-char inputBuffer[INPUT_BUFFER_SIZE]; // Used to store data from the serial input
+
+char inputBuffer[INPUT_BUFFER_SIZE];  // Used to store data from the serial bus
+
 
 void setup()
 {
 
-  Serial.begin(115200); // Serial.begin() should be called before uploadBitstream
+  Serial.begin(115200);  // Serial.begin() should be called before uploadBitstream
 
   // Upload the bitstream to the FPGA
   uploadBitstream();
 
   while (!Serial)
     ;
-
-  // Warning: The digital pins 6, 7 and 8 are configured as outputs
-  // on the FPGA, so shortening them out or configuring them as outputs
-  // on the CPU as well may kill your Arduino permanently
 
   initJTAG();
 }
@@ -29,25 +27,25 @@ void writePixelsToJTAG() {
   int offset;
 
   // Two cycles to write 784 bits to FPGA
-  for (int JTAGOffset = 0; JTAGOffset < 98; JTAGOffset += 56) {
+  for (int cycleOffset = 0; cycleOffset < (INPUT_BUFFER_SIZE - 1) / (4 * (JTAG_REGS - 1)) + 1; cycleOffset++) {
     // Signal FPGA to start accepting inputs
     writeJTAG(JTAG_REGS - 1, 0);
 
     // Write pixel values to FPGA 
-    for (int registerOffset = 0; registerOffset < JTAG_REGS - 1; registerOffset++) {
+    for (int regOffset = 0; regOffset < JTAG_REGS - 1; regOffset++) {
       value = 0;
       for (int byteOffset = 0; byteOffset < 4; byteOffset++) {
-        offset = JTAGOffset + 4 * registerOffset + byteOffset;
-        if (offset < 98) {
-          value |= (uint32_t)(inputBuffer[offset]) << (8 * byteOffset); // 24 - 
+        offset = 4 * (JTAG_REGS - 1) * cycleOffset + 4 * regOffset + byteOffset;
+        if (offset < INPUT_BUFFER_SIZE) {
+          value |= ((uint32_t)inputBuffer[offset]) << (8 * byteOffset);
         }
       }
 
-      writeJTAG(registerOffset, value);
+      writeJTAG(regOffset, value);
     }
 
     // Signal FPGA to store data from JTAG in register
-    writeJTAG(JTAG_REGS - 1, (JTAGOffset == 56) ? 3 : 1);
+    writeJTAG(JTAG_REGS - 1, (INPUT_BUFFER_SIZE - 4 * (JTAG_REGS - 1) * cycleOffset) <= (4 * (JTAG_REGS - 1)) ? 3 : 1);
     delay(10);
   }
 }
@@ -62,7 +60,6 @@ void loop()
       writePixelsToJTAG();
 
       // Wait, just to be sure
-      // delayMicroseconds(10);
       delay(1000);
   
       // Get and output result
@@ -72,8 +69,7 @@ void loop()
       Serial.print(intBuffer);
       Serial.print(" / ");
       Serial.println(output);
-      Serial.println((uint32_t)readJTAG(1));
-      
+      Serial.println((uint32_t)readJTAG(1));      
     } else {
       Serial.println("Image is invalid!");
     }

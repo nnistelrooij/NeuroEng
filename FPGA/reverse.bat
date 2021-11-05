@@ -1,10 +1,11 @@
 @echo off
 
 set cd=%~dp0
+FOR %%A IN ("%~dp0.") DO SET parent=%%~dpA
 IF %cd:~-1%==\ SET cd=%cd:~0,-1%
 
-set sourcePath=%cd%\MKRVIDOR4000\projects\JTAG_Interface\output_files\MKRVIDOR4000.ttf
-set targetPath=%cd%\FPGA_Arduino\FPGA_Bitstream.h
+set sourcePath=%cd%\projects\SNN_Perceptron\output_files\MKRVIDOR4000.ttf
+set targetPath=%parent%\Arduino\FPGA_Bitstream.h
 set tempFile=%cd%\tempStream.ttf
 
 if exist "%tempFile%" (
