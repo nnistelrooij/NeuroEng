@@ -25,7 +25,7 @@ if __name__ == '__main__':
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
     # open serial port to Arduino, see Tools > Port in Arduino IDE for port name
-    ser = serial.Serial(port='COM3', baudrate=115_200)
+    ser = serial.Serial(port='COM4', baudrate=115_200)
     def on_close(event):
         ser.close()
         exit()
