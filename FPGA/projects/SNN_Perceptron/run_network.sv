@@ -2,7 +2,6 @@ module run_network
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
-	parameter NUM_POS_WEIGHTS = 3,
 	parameter bit [WIDTH:0] WEIGHTS [0:HEIGHT - 1] = '{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}
 )
 (
@@ -17,7 +16,7 @@ module run_network
 	// number of iterations network has been running
 	reg [$clog2(HEIGHT * (2 **(WIDTH + 1) + 2)) - 1:0] iters = 0;
 
-	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .NUM_POS_WEIGHTS(NUM_POS_WEIGHTS), .WEIGHTS(WEIGHTS)) N (
+	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
 		.clk(running & clk),
 		.rst(!start),
 		.pixels(pixels),
@@ -29,7 +28,7 @@ module run_network
 		if (start) begin
 			running = 1;
 			iters = 0;
-		end else if (iters == (HEIGHT * (2 **(WIDTH + 1) + 2) - 1)) begin
+		end else if (iters == (HEIGHT * (2 ** (WIDTH + 1) + 2) - 1)) begin
 			running = 0;
 			iters = 0;
 		end else begin
@@ -39,6 +38,7 @@ module run_network
 	
 	assign neuron_out[1] = !start & !running & !neuron_out[0];
 endmodule
+
 
 module test_all_images;
 	reg clk = 0;

@@ -45,7 +45,7 @@ void writePixelsToJTAG() {
     }
 
     // Signal FPGA to store data from JTAG in register
-    writeJTAG(JTAG_REGS - 1, (INPUT_BUFFER_SIZE - cycleOffset) <= (4 * (JTAG_REGS - 1)) ? 3 : 1);
+    writeJTAG(JTAG_REGS - 1, (INPUT_BUFFER_SIZE - 4 * (JTAG_REGS - 1) * cycleOffset) <= (4 * (JTAG_REGS - 1)) ? 3 : 1);
     delay(10);
   }
 }

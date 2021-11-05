@@ -1,29 +1,20 @@
 module output2
 #(
 	parameter WIDTH = 8,
-	parameter HEIGHT = 7,
-	parameter NUM_POS_WEIGHTS = 3
+	parameter HEIGHT = 7
 )
 (
 	input wire clk,
 	input wire rst,
-	input wire reset_circuit,
 	input wire pixel,
 	output neuron_out,
 	output [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance_out
 );
+	reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = 0;
 	
-	// reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); //2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
-	reg [$clog2(HEIGHT * (2 ** WIDTH - 1) + 1) - 1:0] balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1);
-	reg [$clog2(HEIGHT * 4 + 1) - 1:0] cnt = 0;
-	
-	integer i;	
-	always @(posedge clk, negedge rst, negedge reset_circuit) begin
+	always @(posedge clk, negedge rst) begin
 		if (!rst) begin			
-			balance = NUM_POS_WEIGHTS * (2 ** WIDTH - 1); // 2 ** $clog2(HEIGHT * (2 ** WIDTH)) - HEIGHT * (2 ** WIDTH);
-			cnt = 0;
-		end else if (!reset_circuit) begin
-		
+			balance = 0;
 		end else begin			
 			if (balance != HEIGHT * (2 ** WIDTH - 1)) begin  // has not yet overflowed
 				balance = balance + pixel;

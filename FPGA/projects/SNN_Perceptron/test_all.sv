@@ -5,36 +5,40 @@ module test_all (
 	input wire FINISH,
 	output wire start_SNN2,
 	output wire [1:0] neurons_out,
-	output wire reg_offset2,
-	output wire progressed2
-);
-	wire [31:0] DATA [13:0] = '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  // Data from the JTAG
-	wire [1:0] SNN_OUT;  // Data to the JTAG
-
+	output wire [10:0] balance_out,
+	output wire [9:0] reg_offset2,
+	output wire progressed2,
+	output wire [1:0] status2
+);	
+	reg [31:0] DATA [0:13] = '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	reg [799:0] IMAGE; // Room for 800 bits of data (25*32 bits)
-	
-	reg [9:0] reg_offset = 0;
-	integer i;
-	integer j;
 
-	reg progressed = 0;
-	reg start_SNN = 0;
 
+	reg [1:0] status = 0; // status to finish and reset in order
+	reg start_SNN = 0;  // spike to reset and start SNN
 	run_network #(
 		.WIDTH(8),
 		.HEIGHT(7),
-		.WEIGHTS('{9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260, 9'd260})
+		.WEIGHTS('{9'd255, 9'd257, 9'd511, 9'd260, 9'd260, 9'd257, 9'd511})
 	) SNN (
-		.clk(clk),
+		.clk((status == 0) & clk),
 		.pixels(pixels),
 		.start(clk & start_SNN),
-		.neuron_out(neurons_out)
+		.neuron_out(neurons_out),
+		.balance_out(balance_out)
 	);
 
+
+	reg [9:0] reg_offset = 0;  // which pixel is being written
+	reg progressed = 0;  // whether we have written something in IMAGE
+
+
+	integer i;
+	integer j;
 	always @(posedge clk) begin
-		if (NEXT & !progressed) begin
+		if (NEXT && !progressed) begin
+			status = 1;
 			progressed = 1;
-			
 			for (i = 0; i < 14; i = i + 1) begin
 				reg_offset = 448 * FINISH + 32 * i;
 				if (!FINISH || i < 11) begin
@@ -47,18 +51,22 @@ module test_all (
 			progressed = 0;
 		end
 		
-		if (FINISH & reg_offset > 0) begin
+		if (FINISH && reg_offset > 0) begin
 			reg_offset = 0;
+			status = 2;
+		end else if (status == 2) begin
 			start_SNN = 1;
-		end else begin
+			status = 3;
+		end else if (status == 3) begin
 			start_SNN = 0;
+			status = 0;
 		end
 	end
 	
 	assign start_SNN2 = start_SNN;
 	assign progressed2 = progressed;
 	assign reg_offset2 = reg_offset;
-
+	assign status2 = status;
 endmodule
 
 
@@ -66,11 +74,13 @@ module testbench_test_all;
 	reg clk = 0;
 	reg NEXT;
 	reg FINISH = 0;
-	reg [6:0] pixels = 7'b0000000;
+	reg [6:0] pixels = 7'b0000111;
 	wire [1:0] neurons_out;
 	wire start_SNN;
-	wire reg_offset;
+	wire [9:0] reg_offset;
 	wire progressed;
+	wire [10:0] balance_out;
+	wire [1:0] status;
 	
 	test_all TA (
 		.clk(clk),
@@ -80,7 +90,9 @@ module testbench_test_all;
 		.start_SNN2(start_SNN),
 		.neurons_out(neurons_out),
 		.reg_offset2(reg_offset),
-		.progressed2(progressed)
+		.progressed2(progressed),
+		.balance_out(balance_out),
+		.status2(status)
 	);
 	
 	initial begin
