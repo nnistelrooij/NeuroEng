@@ -144,5 +144,5 @@ endmodule
 
     # add test images to base module string and write to SystemVerilog file
     final_string = re.sub('\{\}', in_string, base)
-    with open(r'..\Arduino\MKRVIDOR4000\projects\JTAG_Interface\run_network.sv', 'w') as f:
+    with open(r'code.sv', 'w') as f:#r'..\Arduino\MKRVIDOR4000\projects\JTAG_Interface\run_network.sv', 'w') as f:
         f.write(final_string)
