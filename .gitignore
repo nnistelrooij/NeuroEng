@@ -1,3 +1,8 @@
-Python/test.npz
-Arduino/MKRVIDOR4000/projects/JTAG_Interface/simulation/
+test.npz
+FPGA/projects/SNN_Perceptron/simulation/
+FPGA/projects/SNN_Perceptron/output_files/
+FPGA/projects/SNN_Perceptron/incremental_db/
+FPGA/projects/SNN_Perceptron/db/
+*.bak
 data.pt
+.ipynb_checkpoints/

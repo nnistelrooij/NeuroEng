@@ -1,9 +1,9 @@
-import random
-
-import matplotlib.pyplot as plt
-import numpy as np
 import os
+import random
+import re
 import time
+
+import numpy as np
 
 
 def binarize_data(images, labels, pos_class=7, neg_class=3):
@@ -16,29 +16,28 @@ def binarize_data(images, labels, pos_class=7, neg_class=3):
 
     return images, labels
 
-def image_to_bits(image):
-    strImage = ""
-    for bitStream in reversed(image):
-        for bit in reversed(bitStream):
-            strImage += str(bit)
-    return strImage
 
+def image_to_bits(image):
+    bit_string = ''
+    for pixel_row in reversed(image):
+        for pixel in reversed(pixel_row):
+            bit_string += str(pixel)
+
+    return bit_string
 
 
 if __name__ == '__main__':
-    test_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                  'test.npz')
+    # load test data and binarize images
+    test_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test.npz')
     data = np.load(test_file_path)
     images, labels = binarize_data(data['arr_0'], data['arr_1'])
 
-    # num_images = 1000
-    # start_idx = 0
-    # images, labels = images[start_idx:start_idx + num_images], labels[start_idx:start_idx + num_images]
-
+    # select which images to test in simulation
     num_images = 1038
     start_idx = 1000
     images, labels = images[start_idx:start_idx + num_images], labels[start_idx:start_idx + num_images]
 
+    # base module as string
     base = f"""module run_network
 #(
 	parameter WIDTH = 8,
@@ -126,10 +125,11 @@ module test_all_images;
 endmodule
 """
 
+    # add each test image
     in_string = f"""
         if (j == 0) begin
             pixels = 784'b{image_to_bits(images[0])};
-            expected_neuron_out = {2 if labels[0] == 0 else 1};
+            expected_neuron_out = {1 if labels[0] else 2};
         {{}}
     """
 
@@ -137,63 +137,12 @@ endmodule
         in_string = in_string.format(
             f"""end else if (j == {i}) begin
             pixels = 784'b{image_to_bits(image)};
-            expected_neuron_out = {2 if label == 0 else 1};
+            expected_neuron_out = {1 if label else 2};
         {{}}"""
         )
     in_string = in_string.format('end')
-    #print(in_string)
 
-    import re
+    # add test images to base module string and write to SystemVerilog file
     final_string = re.sub('\{\}', in_string, base)
     with open(r'..\Arduino\MKRVIDOR4000\projects\JTAG_Interface\run_network.sv', 'w') as f:
         f.write(final_string)
-
-    exit()
-
-    ser = serial.Serial(port='COM4', baudrate=115_200)
-
-
-    def on_close(event):
-        ser.close()
-        exit()
-
-
-    fig = plt.figure()
-    fig.canvas.mpl_connect('close_event', on_close)
-
-    plot = plt.imshow(images[0])
-    plt.axis('off')
-    plt.title('MNIST digit')
-    plt.ion()
-    plt.show()
-
-    while ser.isOpen():
-        idx = random.randrange(images.shape[0])
-        plot.set_data(images[idx])
-        plt.title(f'MNIST digit {idx}')
-
-        images[idx][:] = 0
-        # images[idx][0, 6] = 1  # -255
-        # images[idx][0, 5] = 1  # -1
-        # images[idx][0, 1] = 1  # +1
-        # images[idx][0, 0] = 1  # +255
-
-        # images[idx][0, 3] = 1
-        # images[idx][4, 12] = 1  # minimum
-        # images[idx][19, 11] = 1  // maximum
-        # # images[idx][0, 1] = 1
-        encodedImage = np.packbits(images[idx], bitorder='little').tobytes()
-        print("Image encoded, now writing to the serial")
-        ser.write(encodedImage)
-        ser.flush()
-        print("Image uploaded to Arduino")
-        time.sleep(2)
-        from_arduino = ser.read_all()
-        if from_arduino:
-            print(from_arduino.decode("utf-8"))
-        else:
-            print('Arduino did not output anything')
-
-        input('Press [Enter] for the next image.')
-
-    print('Serial closed')
