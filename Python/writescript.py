@@ -42,7 +42,6 @@ if __name__ == '__main__':
 #(
 	parameter WIDTH = 8,
 	parameter HEIGHT = 7,
-	parameter NUM_POS_WEIGHTS = 3,
 	parameter bit [WIDTH:0] WEIGHTS [0:HEIGHT - 1] = '{{9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60, 9'd60}}
 )
 (
@@ -57,7 +56,7 @@ if __name__ == '__main__':
 	// number of iterations network has been running
 	reg [$clog2(HEIGHT * (2 **(WIDTH + 1) + 2)) - 1:0] iters = 0;
 
-	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .NUM_POS_WEIGHTS(NUM_POS_WEIGHTS), .WEIGHTS(WEIGHTS)) N (
+	network #(.WIDTH(WIDTH), .HEIGHT(HEIGHT), .WEIGHTS(WEIGHTS)) N (
 		.clk(running & clk),
 		.rst(!start),
 		.pixels(pixels),
@@ -80,13 +79,14 @@ if __name__ == '__main__':
 	assign neuron_out[1] = !start & !running & !neuron_out[0];
 endmodule
 
+
 module test_all_images;
 	reg clk = 0;
 	reg [783:0] pixels = 0;
 	reg start = 0;
 	wire [1:0] neuron_out;
 	reg [1:0] expected_neuron_out = 0;
-	reg [$clog2({num_images}) - 1:0] guessed_neuron_out = 0;
+	reg [$clog2({num_images}) - 1:0] true_positives = 0, false_positives = 0, true_negatives = 0, false_negatives = 0;
 
 	run_network #(
 		.WIDTH(8),
@@ -117,8 +117,14 @@ module test_all_images;
 			end clk = 0;
 
 			// update guess count
-			if (expected_neuron_out == neuron_out) begin
-				guessed_neuron_out = guessed_neuron_out + 1;
+			if (expected_neuron_out == 1 && expected_neuron_out == neuron_out) begin
+				true_positives = true_positives + 1;
+			end else if (expected_neuron_out == 1) begin
+				false_positives = false_positives + 1;
+			end else if (expected_neuron_out == 2 && expected_neuron_out == neuron_out) begin
+				true_negatives = true_negatives + 1;
+			end else begin
+				false_negatives = false_negatives + 1;
 			end
 		end
 	end
