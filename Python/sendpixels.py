@@ -60,7 +60,9 @@ if __name__ == '__main__':
         time.sleep(2)
         response = ser.read_all()
         if response:
-            print(response.decode('utf-8'))
+            reponse_str = response.decode('utf-8')
+            print(reponse_str)
+            plt.title(f'MNIST digit {idx} is a {7 if response_str.split('\n')[0][-1] == '1' else 3}')
         else:
             print('Arduino did not output anything.')
         
