@@ -13,15 +13,21 @@ module test_all (
 	reg [31:0] DATA [0:13] = '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	reg [799:0] IMAGE; // Room for 800 bits of data (25*32 bits)
 
+	reg start_SNN = 0;  // spike to reset and start SNN
+	wire slow_clock;
+	divide_clock #(.DENOM(2)) DC (
+		.clk(clk),
+		.rst(!start_SNN),
+		.clk_out(slow_clock)
+	);
 
 	reg [1:0] status = 0; // status to finish and reset in order
-	reg start_SNN = 0;  // spike to reset and start SNN
 	run_network #(
 		.WIDTH(8),
 		.HEIGHT(7),
 		.WEIGHTS('{9'd255, 9'd257, 9'd511, 9'd260, 9'd260, 9'd257, 9'd511})
 	) SNN (
-		.clk((status == 0) & clk),
+		.clk((status == 0) & slow_clock),
 		.pixels(pixels),
 		.start(clk & start_SNN),
 		.neuron_out(neurons_out),
@@ -71,7 +77,7 @@ endmodule
 
 
 module testbench_test_all;
-	reg clk = 0;
+	reg clk = 1;
 	reg NEXT;
 	reg FINISH = 0;
 	reg [6:0] pixels = 7'b0000111;
@@ -115,7 +121,7 @@ module testbench_test_all;
 		end
 		NEXT = 1;
 		FINISH = 1;
-		for (i = 0; i < 15000; i = i + 1) begin
+		for (i = 0; i < 30000; i = i + 1) begin
 			#50;
 			clk = !clk;
 		end	
@@ -139,7 +145,7 @@ module testbench_test_all;
 		end
 		NEXT = 1;
 		FINISH = 1;
-		for (i = 0; i < 15000; i = i + 1) begin
+		for (i = 0; i < 30000; i = i + 1) begin
 			#50;
 			clk = !clk;
 		end	
